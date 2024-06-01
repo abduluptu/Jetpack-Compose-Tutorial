@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.soha.infotech.jetpackcomposetutorial.examples.NotificationScreen
 import com.soha.infotech.jetpackcomposetutorial.examples.effect_handlers.Counter
 import com.soha.infotech.jetpackcomposetutorial.examples.effect_handlers.LaunchEffectComposableDemo
 import com.soha.infotech.jetpackcomposetutorial.examples.effect_handlers.MediaDisComposable
@@ -53,6 +54,8 @@ class MainActivity : ComponentActivity() {
                     // RememberUpdatedStateExample()
 
                     // MediaDisComposable()
+
+                    NotificationScreen()
                 }
             }
         }
