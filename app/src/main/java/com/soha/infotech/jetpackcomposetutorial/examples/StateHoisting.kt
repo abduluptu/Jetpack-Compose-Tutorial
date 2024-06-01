@@ -15,6 +15,8 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Recomposer
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
 
 /**
  * State Hoisting Example
@@ -96,7 +99,7 @@ fun MessageBar(count: Int) {
  * Example 2: Parent Composable function
  * (It will share state to child functions)
  */
-@Composable
+/*@Composable
 fun CounterApp() {
     var count by remember { mutableStateOf(0) }
 
@@ -107,6 +110,19 @@ fun CounterApp() {
         // Child function 2
         IncrementButton(onClick = { count++ })
     }
+}*/
+
+// Using ViewModel
+@Composable
+fun CounterApp(viewModel: CounterViewModel) {
+    Column {
+        // Child function 1
+        Counter(viewModel.count.value)
+        
+        // Child function 2
+        IncrementButton(onClick = { viewModel::incrementCount })
+    }
+
 }
 
 // Child function 1
@@ -122,3 +138,24 @@ fun IncrementButton(onClick: () -> Unit) {
         Text("Increment")
     }
 }
+
+// Example 3
+/**
+ * Using data class & ViewModel
+ */
+
+// Create a data class
+data class CounterState(val count: Int)
+
+// Create a ViewModel
+class CounterViewModel : ViewModel() {
+    private val _count = mutableStateOf(0)
+
+    val count: State<Int>
+        get() = _count
+
+    fun incrementCount() {
+        _count.value++
+    }
+}
+
